@@ -49,8 +49,7 @@ namespace Tests
         public static void WaitForElementToDisappear(By locator, IWebDriver driver)
         {
             WebDriverWait wait = new WebDriverWait(driver, defaultTimeOut);
-            wait.Until((locator, driver) => (CheckIfElementDisappeared(locator, driver)));
-            driver.wait(async () => ( CheckIfElementDisappeared(locator, driver)));
+            wait.Until(driver => (CheckIfElementDisappeared(locator, driver)));
         }
 
         static bool CheckIfElementDisappeared(By locator, IWebDriver driver)
