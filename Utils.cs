@@ -10,7 +10,7 @@ namespace Tests
 {
     static class Utils
     {
-        static TimeSpan defaultTimeOut = new TimeSpan(0, 0, 30);
+        public static TimeSpan defaultTimeOut { get; private set; }  = new TimeSpan(0, 0, 30);
 
         public static IWebElement GetElement(By locator, IWebDriver driver)
         {

@@ -4,7 +4,7 @@ using OpenQA.Selenium.Chrome;
 
 namespace Tests
 {
-    public class Tests
+    public class TestFacebookMainPage
     {
         private IWebDriver driver;
         private User user;

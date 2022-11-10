@@ -51,7 +51,7 @@ namespace Tests
             Utils.EnterTextInElementWithLocator(locatorIdPassword, _driver, _user.Password, true, true);
         }
 
-        void prepareToTestsOnUserAccount(string url)
+        public void prepareToTestsOnUserAccount(string url)
         {
             open();
             acceptOnlyEssentialCookiesBeforeLogin();
