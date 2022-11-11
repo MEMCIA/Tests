@@ -12,11 +12,6 @@ namespace Tests
             _driver = driver;
         }
 
-        public void Open()
-        {
-           _driver.Navigate().GoToUrl(FacebookWelcomePage.Url);
-        }
-
         private WebDriver _driver;
         public static string Url = "https://www.facebook.com/?sk=welcome";
     }

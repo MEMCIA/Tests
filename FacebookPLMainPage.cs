@@ -29,9 +29,7 @@ namespace Tests
         {
             var locatorPostWindowExpanded = By.CssSelector("div[aria-label*='O czym myślisz']");
             var element =  Utils.GetElement(locatorPostWindowExpanded, this._driver);
-             element
-                .FindElement(By.CssSelector("p"))
-                .SendKeys(text);
+             element.SendKeys(text);
         }
 
          void clickPublish()
@@ -70,7 +68,10 @@ namespace Tests
          void openPostMenu(IWebElement post)
         {
             var locatorPostMenu = By.CssSelector("div[aria-label='Działania dla tego posta']");
-            Utils.ClickElementWithLocator(locatorPostMenu, _driver, false);
+            var postMenu = post.FindElement(locatorPostMenu);
+            WebDriverWait wait = new WebDriverWait(_driver, Utils.defaultTimeOut);
+            wait.Until(ExpectedConditions.ElementToBeClickable(postMenu));
+            postMenu.Click();
         }
 
          void deleteMostCurrentPost()

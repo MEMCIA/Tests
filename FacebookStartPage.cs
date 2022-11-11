@@ -1,4 +1,5 @@
 ﻿using OpenQA.Selenium;
+using OpenQA.Selenium.Support.UI;
 
 namespace Tests
 {
@@ -31,6 +32,8 @@ namespace Tests
 
             var locatorButtonEssentialCookiesAccept = By.XPath("//span[text()='Zezwól tylko na niezbędne pliki cookie']");
             Utils.ClickElementWithLocator(locatorButtonEssentialCookiesAccept, _driver, true);
+            WebDriverWait wait = new WebDriverWait(_driver, Utils.defaultTimeOut);
+            wait.Until(async (driver) => driver.Url != urlCookies);
         }
 
         public void login()

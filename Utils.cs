@@ -14,18 +14,25 @@ namespace Tests
 
         public static IWebElement GetElement(By locator, IWebDriver driver)
         {
-            WaitToFindElement(locator, driver);
-            var wait = new WebDriverWait(driver, defaultTimeOut);
-            var element = wait.Until(ExpectedConditions.ElementIsVisible(locator));
+            var element = new WebDriverWait(driver, TimeSpan.FromSeconds(3))
+                        .Until(drv => CheckIfElementsExist(locator, drv));
             return element;
+            /*
+            while (true)
+            {
+                var elements = driver.FindElements(locator);
+                if (elements.Count == 0) continue;
+                var element = elements.FirstOrDefault(element => element.Displayed);
+                if (element == null) continue;
+                return element;
+            }
+            */
         }
 
-        public static List<IWebElement> GetElements(By locator, IWebDriver driver)
+        static IWebElement CheckIfElementsExist(By locator, WebDriver driver)
         {
-            WaitToFindElement(locator, driver); 
-            WebDriverWait wait = new WebDriverWait(driver, defaultTimeOut);
-            var elements = wait.Until(ExpectedConditions.VisibilityOfAllElementsLocatedBy(locator));
-            return elements.ToList();
+            var elements = driver.FindElements(locator);
+            return elements.First(element => element.Displayed);
         }
 
         public static IWebElement ClickElementWithLocator(By locator, IWebDriver driver, bool afterWaitForElementToDisappear)
