@@ -54,13 +54,12 @@ namespace Tests
             Utils.EnterTextInElementWithLocator(locatorIdPassword, _driver, _user.Password, true, true);
         }
 
-        public void prepareToTestsOnUserAccount(string url)
+        public void prepareToTestsOnUserAccount()
         {
             open();
             acceptOnlyEssentialCookiesBeforeLogin();
             login();
             acceptOnlyEssentialCookiesAfterLogin();
-            Utils.WaitUntilUrlIsTheSame(url, _driver);
         }
 
     private User _user;

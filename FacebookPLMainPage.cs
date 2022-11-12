@@ -9,7 +9,7 @@ namespace Tests
 {
     class FacebookPLMainPage
     {
-        FacebookPLMainPage(WebDriver driver)
+        public FacebookPLMainPage(IWebDriver driver)
         {
             this._driver = driver;
         }
@@ -47,7 +47,7 @@ namespace Tests
 
          IWebElement findMostCurrentPost()
         {
-            var locatormostCurrentPost = By.CssSelector("div[data-pagevar='FeedUnit_0']");
+            var locatormostCurrentPost = By.CssSelector("div[data-pagelet='FeedUnit_0']");
             return  Utils.GetElement(locatormostCurrentPost, this._driver);
         }
 
@@ -58,7 +58,7 @@ namespace Tests
             return textInPostElement.Contains(text);
         }
 
-         bool waitForPostWithCertainText(string text)
+         public bool waitForPostWithCertainText(string text)
         {
             var wait = new WebDriverWait(_driver, Utils.defaultTimeOut);
             wait.Until( (driver) => checkIfPostHasCertainText(text));
@@ -74,7 +74,7 @@ namespace Tests
             postMenu.Click();
         }
 
-         void deleteMostCurrentPost()
+         public void deleteMostCurrentPost()
         {
             var mostCurrentPost = findMostCurrentPost();
             deletePost(mostCurrentPost);
@@ -94,7 +94,7 @@ namespace Tests
             Utils.ClickElementWithLocator(locatorConfirm, this._driver, true);
         }
 
-        private WebDriver _driver;
+        private IWebDriver _driver;
         public static readonly string Url = "https://www.facebook.com/";
     }
 }

@@ -1,4 +1,6 @@
-﻿using OpenQA.Selenium;
+﻿using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium;
+using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.WaitHelpers;
 using System;
@@ -14,25 +16,15 @@ namespace Tests
 
         public static IWebElement GetElement(By locator, IWebDriver driver)
         {
-            var element = new WebDriverWait(driver, TimeSpan.FromSeconds(3))
-                        .Until(drv => CheckIfElementsExist(locator, drv));
+            var element = new WebDriverWait(driver, defaultTimeOut)
+                        .Until(drv => FindDisplayedElement(locator, drv));
             return element;
-            /*
-            while (true)
-            {
-                var elements = driver.FindElements(locator);
-                if (elements.Count == 0) continue;
-                var element = elements.FirstOrDefault(element => element.Displayed);
-                if (element == null) continue;
-                return element;
-            }
-            */
         }
 
-        static IWebElement CheckIfElementsExist(By locator, WebDriver driver)
+        static IWebElement FindDisplayedElement(By locator, IWebDriver driver)
         {
             var elements = driver.FindElements(locator);
-            return elements.First(element => element.Displayed);
+            return elements.FirstOrDefault(element => element.Displayed);
         }
 
         public static IWebElement ClickElementWithLocator(By locator, IWebDriver driver, bool afterWaitForElementToDisappear)
@@ -114,5 +106,13 @@ namespace Tests
             return Int32.Parse(result);
         }
 
+        public static IWebDriver CreateDriver()
+        {
+            var options = new ChromeOptions();
+            //disabled to prevent site from asking permission to show notifications 
+            options.AddArguments("--disable-notifications");
+            var driver = new ChromeDriver(options);
+            return driver;
+        }
     }
 }

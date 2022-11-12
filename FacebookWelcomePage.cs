@@ -7,12 +7,6 @@ namespace Tests
 {
     class FacebookWelcomePage
     {
-        public FacebookWelcomePage(WebDriver driver)
-        {
-            _driver = driver;
-        }
-
-        private WebDriver _driver;
         public static string Url = "https://www.facebook.com/?sk=welcome";
     }
 }

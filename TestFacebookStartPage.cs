@@ -1,42 +1,49 @@
 using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
+using System;
 
 namespace Tests
 {
-    public class TestFacebookMainPage
+    public class TestFacebookStartPage
     {
         private IWebDriver driver;
         private User user;
         private FacebookStartPage startPagePL;
         private FacebookMenuBar menuBar;
-
+        By locatorButtonLogout = By.XPath("//span[contains(text(),'Wyloguj')]");
 
         [SetUp]
         public void Setup()
         {
-            driver = new ChromeDriver();
+            driver = Utils.CreateDriver();
             //language of user should be set to polish
             user = new User("fezqbutwoa_1666692643@tfbnw.net", "12345T");
             startPagePL = new FacebookStartPage(driver, user);
             menuBar = new FacebookMenuBar(driver);
-            startPagePL.open();
-            startPagePL.acceptOnlyEssentialCookiesBeforeLogin();
+            startPagePL.prepareToTestsOnUserAccount();
         }
 
         [Test]
-        public void CheckIfLoginTakesUserToRightPage()
+        public void CheckIfAfterLogInButtonLogOutIsAvaible()
         {
-            startPagePL.login();
-            startPagePL.acceptOnlyEssentialCookiesAfterLogin();
-            string currentUrl = driver.Url;   
-            Assert.That(currentUrl, Is.EqualTo(FacebookWelcomePage.Url));
+
+            menuBar.clickAccountSymbol();
+            try
+            {
+                var buttonLogOut = Utils.GetElement(locatorButtonLogout, driver);
+                Assert.That(buttonLogOut, Is.Not.EqualTo(null));
+            }
+            catch (Exception error)
+            {
+                Assert.That(error, Is.EqualTo(null));
+            }
         }
 
-        [TearDown]
+    [TearDown]
         public void TearDown()
         {
-            menuBar.logout();
+            Utils.ClickElementWithLocator(locatorButtonLogout, driver, false);
             driver.Quit();
         }
 

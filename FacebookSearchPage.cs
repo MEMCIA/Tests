@@ -7,7 +7,7 @@ namespace Tests
 {
     class FacebookSearchPage
     {
-        public FacebookSearchPage(WebDriver driver)
+        public FacebookSearchPage(IWebDriver driver)
         {
             _driver = driver;
         }
@@ -19,6 +19,6 @@ namespace Tests
             return header.FindElement(By.CssSelector("span")).Text;
         }
 
-        private WebDriver _driver;
+        private IWebDriver _driver;
     }
 }
