@@ -20,11 +20,11 @@ namespace Tests
         {
             driver =  Utils.CreateDriver();
             //language of user should be set to polish
-            user = new User("fezqbutwoa_1666692643@tfbnw.net", "12345T");
+            user = new User("x", "x");
             startPage = new FacebookStartPage(driver, user);
             menuBar = new FacebookMenuBar(driver);
             mainPage = new FacebookPLMainPage(driver);
-            startPage.prepareToTestsOnUserAccount();
+            startPage.PrepareToTestsOnUserAccount();
         }
 
         [Test]
@@ -33,10 +33,10 @@ namespace Tests
         {
             try
             {
-                mainPage.open();
+                mainPage.Open();
                 string postContent = (Utils.GetRandomNumber(10)).ToString();
                 mainPage.makePost(postContent);
-                var isRightTextInPost = mainPage.waitForPostWithCertainText(postContent);
+                var isRightTextInPost = mainPage.WaitForPostWithCertainText(postContent);
                 Assert.That(isRightTextInPost, Is.True); ;
             }
             catch (Exception error)
@@ -49,8 +49,8 @@ namespace Tests
 
         public void TearDown()
         {
-            mainPage.deleteMostCurrentPost();
-            menuBar.logout();
+            mainPage.DeleteMostCurrentPost();
+            menuBar.Logout();
             driver.Quit();
         }
     }

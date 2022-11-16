@@ -17,27 +17,27 @@ namespace Tests
         {
             driver = Utils.CreateDriver();
             //language of user should be set to polish
-            user = new User("styuurowsz_1666447403@tfbnw.net", "12345T");
+            user = new User("x", "x");
             startPage = new FacebookStartPage(driver, user);
             menuBar = new FacebookMenuBar(driver);
             searchPage = new FacebookSearchPage(driver);
-            startPage.prepareToTestsOnUserAccount();
+            startPage.PrepareToTestsOnUserAccount();
         }
 
         [Test]
         public void CheckIfHeaderShowsSearchedWord()
         {
             var wordToSearch = "McDonald";
-            menuBar.clickSearch();
-            menuBar.enterWordInSearch(wordToSearch);
-            var wordInHeader =  searchPage.findWordInResultHeader();
+            menuBar.ClickSearch();
+            menuBar.EnterWordInSearch(wordToSearch);
+            var wordInHeader =  searchPage.FindWordInResultHeader();
             Assert.That(wordInHeader, Is.EqualTo(wordToSearch));
         }
 
         [TearDown]
         public void TearDown()
         {
-            menuBar.logout();
+            menuBar.Logout();
             driver.Quit();
         }
 

@@ -10,27 +10,27 @@ namespace Tests
             _driver = driver;
         }
 
-        public void clickSearch()
+        public void ClickSearch()
         {
             var locatorSearchButton = By.CssSelector("input[placeholder = 'Szukaj na Facebooku']");
             Utils.ClickElementWithLocator(locatorSearchButton, _driver, false);
         }
 
-        public void enterWordInSearch(string word)
+        public void EnterWordInSearch(string word)
         {
             var locatorFinder = By.CssSelector("input[placeholder = 'Szukaj na Facebooku']");
             Utils.EnterTextInElementWithLocator(locatorFinder, _driver, word, true, false);
         }
 
-        public void clickAccountSymbol()
+        public void ClickAccountSymbol()
         {
             var locatorAccountSymbol = By.CssSelector("svg[aria-label='Twój profil']");
             Utils.ClickElementWithLocator(locatorAccountSymbol, _driver, false);
         }
 
-        public void logout()
+        public void Logout()
         {
-            clickAccountSymbol();
+            ClickAccountSymbol();
             var locatorButtonLogout = By.XPath("//span[contains(text(),'Wyloguj')]");
             Utils.ClickElementWithLocator(locatorButtonLogout, _driver, false);
         }

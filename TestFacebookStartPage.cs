@@ -18,17 +18,17 @@ namespace Tests
         {
             driver = Utils.CreateDriver();
             //language of user should be set to polish
-            user = new User("fezqbutwoa_1666692643@tfbnw.net", "12345T");
+            user = new User("x", "x");
             startPagePL = new FacebookStartPage(driver, user);
             menuBar = new FacebookMenuBar(driver);
-            startPagePL.prepareToTestsOnUserAccount();
+            startPagePL.PrepareToTestsOnUserAccount();
         }
 
         [Test]
         public void CheckIfAfterLogInButtonLogOutIsAvaible()
         {
 
-            menuBar.clickAccountSymbol();
+            menuBar.ClickAccountSymbol();
             try
             {
                 var buttonLogOut = Utils.GetElement(locatorButtonLogout, driver);

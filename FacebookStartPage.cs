@@ -13,18 +13,18 @@ namespace Tests
 
         }
 
-        public void open()
+        public void Open()
         {
              _driver.Navigate().GoToUrl(FacebookStartPage.Url);
         }
 
-        public void acceptOnlyEssentialCookiesBeforeLogin()
+        public void AcceptOnlyEssentialCookiesBeforeLogin()
         {
             var locatorButtonEssentialCookiesAccept = By.CssSelector("button[data-testid='cookie-policy-manage-dialog-accept-button']");
             Utils.ClickElementWithLocator(locatorButtonEssentialCookiesAccept, _driver, true);
         }
 
-        public void acceptOnlyEssentialCookiesAfterLogin()
+        public void AcceptOnlyEssentialCookiesAfterLogin()
         {
             string urlCookies = "https://www.facebook.com/privacy/consent/user_cookie_choice/?source=pft_user_cookie_choice";
             bool isRequestToAcceptCookies = Utils.CheckIfUrlIsTheSame(urlCookies, _driver);
@@ -36,30 +36,30 @@ namespace Tests
             wait.Until(async (driver) => driver.Url != urlCookies);
         }
 
-        public void login()
+        public void Login()
         {
-            enterEmail();
-            enterPassword();
+            EnterEmail();
+            EnterPassword();
         }
 
-        void enterEmail()
+        void EnterEmail()
         {
             var locatorIdEmail = By.Id("email");
             Utils.EnterTextInElementWithLocator(locatorIdEmail, _driver, _user.Email, false, false);
         }
 
-        void enterPassword()
+        void EnterPassword()
         {
             var locatorIdPassword = By.Id("pass");
             Utils.EnterTextInElementWithLocator(locatorIdPassword, _driver, _user.Password, true, true);
         }
 
-        public void prepareToTestsOnUserAccount()
+        public void PrepareToTestsOnUserAccount()
         {
-            open();
-            acceptOnlyEssentialCookiesBeforeLogin();
-            login();
-            acceptOnlyEssentialCookiesAfterLogin();
+            Open();
+            AcceptOnlyEssentialCookiesBeforeLogin();
+            Login();
+            AcceptOnlyEssentialCookiesAfterLogin();
         }
 
     private User _user;

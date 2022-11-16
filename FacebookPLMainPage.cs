@@ -14,25 +14,25 @@ namespace Tests
             this._driver = driver;
         }
 
-         public void open()
+         public void Open()
         {
             _driver.Navigate().GoToUrl(FacebookPLMainPage.Url);
         }
 
-        void clickCreatePostWindow()
+        void ClickCreatePostWindow()
         {
             var locatorPostWindow = By.XPath("//span[contains(text(), 'O czym myślisz')]");
              Utils.ClickElementWithLocator(locatorPostWindow, this._driver, false);
         }
 
-        void enterTextInPost(string text)
+        void EnterTextInPost(string text)
         {
             var locatorPostWindowExpanded = By.CssSelector("div[aria-label*='O czym myślisz']");
             var element =  Utils.GetElement(locatorPostWindowExpanded, this._driver);
              element.SendKeys(text);
         }
 
-         void clickPublish()
+         void ClickPublish()
         {
             var locatorPublishButton = By.XPath("//span[text()='Opublikuj']");
              Utils.ClickElementWithLocator(locatorPublishButton, this._driver, true);
@@ -40,32 +40,32 @@ namespace Tests
 
          public void makePost(string content)
         {
-            clickCreatePostWindow();
-            enterTextInPost(content);
-            clickPublish();
+            ClickCreatePostWindow();
+            EnterTextInPost(content);
+            ClickPublish();
         }
 
-         IWebElement findMostCurrentPost()
+         IWebElement FindMostCurrentPost()
         {
             var locatormostCurrentPost = By.CssSelector("div[data-pagelet='FeedUnit_0']");
             return  Utils.GetElement(locatormostCurrentPost, this._driver);
         }
 
-         bool checkIfPostHasCertainText(string text)
+         bool CheckIfPostHasCertainText(string text)
         {
-            var mostCurrentPost = findMostCurrentPost();
+            var mostCurrentPost = FindMostCurrentPost();
             var textInPostElement =  mostCurrentPost.Text;
             return textInPostElement.Contains(text);
         }
 
-         public bool waitForPostWithCertainText(string text)
+         public bool WaitForPostWithCertainText(string text)
         {
             var wait = new WebDriverWait(_driver, Utils.defaultTimeOut);
-            wait.Until( (driver) => checkIfPostHasCertainText(text));
+            wait.Until( (driver) => CheckIfPostHasCertainText(text));
             return true;
         }
 
-         void openPostMenu(IWebElement post)
+         void OpenPostMenu(IWebElement post)
         {
             var locatorPostMenu = By.CssSelector("div[aria-label='Działania dla tego posta']");
             var postMenu = post.FindElement(locatorPostMenu);
@@ -74,21 +74,21 @@ namespace Tests
             postMenu.Click();
         }
 
-         public void deleteMostCurrentPost()
+         public void DeleteMostCurrentPost()
         {
-            var mostCurrentPost = findMostCurrentPost();
-            deletePost(mostCurrentPost);
+            var mostCurrentPost = FindMostCurrentPost();
+            DeletePost(mostCurrentPost);
         }
 
-         void deletePost(IWebElement post)
+         void DeletePost(IWebElement post)
         {
-            openPostMenu(post);
+            OpenPostMenu(post);
             var locatorDevareButton = By.XPath("//span[text()='Przenieś do kosza']");
             Utils.ClickElementWithLocator(locatorDevareButton, this._driver, true);
-            confirmDelete();
+            ConfirmDelete();
         }
 
-         void confirmDelete()
+         void ConfirmDelete()
         {
             var locatorConfirm = By.XPath("//span[text()='Przenieś']");
             Utils.ClickElementWithLocator(locatorConfirm, this._driver, true);

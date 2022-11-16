@@ -12,7 +12,7 @@ namespace Tests
             _driver = driver;
         }
 
-        public string findWordInResultHeader()
+        public string FindWordInResultHeader()
         {
             var locatorHeader = By.CssSelector("h1[tabindex='-1']");
             var header =  Utils.GetElement(locatorHeader, this._driver);
